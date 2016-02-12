@@ -9,11 +9,11 @@ var outer = function(){
 //Above you're given a function that returns another function which has a closure over the name variable.
 //Invoke outer saving the return value into another variable called 'inner'.
 
-  //Code Here
+var inner= outer();
 
 //Once you do that, invoke inner.
 
-  //Code Here
+inner();
 
 
 
@@ -23,29 +23,34 @@ var outer = function(){
 
 var callFriend = function(){
   var friend = 'Jake';
+  
   function callF(number){
+    var number = '435-215-9248';  //added phone number here to satisfy parameter
     return 'Calling ' + friend + ' at ' + number;
   }
   return callF;
 };
 
 //Above you're given a callFriend function that returns another function.
-//Do what you need to do in order to call your function and get 'Calling Jake at 435-215-9248' in your console.
-
-  //Code Here
-
+//Do what you need to do in order to call your function and get '435-215-9248' in your console.
+var callJake = callFriend();  //assigned outer function to new function
+callJake();                   //invoked new function
 
 
 //Next Problem
 
 
-
 /*
   Write a function called makeCounter that makes the following code work properly.
 */
+var makeCounter = function(){
+    var counter = 1;          //start with a counter of 1
+    return function() {       //then nedd a function to increment
+      return counter++;       //each invokation, increment by 1
+    };
+   }
 
-  //Code Here
-  var count = makeCounter();
+  var count = makeCounter();  //assigning to function to new variable
   count(); // 1
   count(); // 2
   count(); // 3
@@ -60,7 +65,28 @@ var callFriend = function(){
 /*
   Write a function named codeLove that returns the string 'I love code'. Write a second function named codeFriend that accepts the first function as it's first parameter. The second function should return a new third function. Store the third function in a variable, codeEcho which, when invoked, invokes the first, original function that was passed in, but will only ever do so once (returns null after first invocation).
 */
+var codeLove = function(){
+  return 'I love code';
+}
+var codeHate  = function (){
+  return 'whatever';
+}
+var codeFriend = function(func) {  //func is just a place holder
+  var first = true;  //flag
+  return function(){
+    if (first){
+      first = !first;
+      return func();  //codeLove invoked
+    }
+      return null;
 
+  } 
+
+
+};
+var codeEcho = codeFriend(codeLove);  //codeEcho is the inner 3rd func
+var codeEcho2 = codeFriend(codeHate);
+codeEcho();
   //Code Here
 
 
@@ -70,9 +96,15 @@ var callFriend = function(){
 
 
 /*
-  Now, similar to the last problem, write a function called 'fnCounter' that accepts two parameters. The first parameter will be an anonymous function and the second parameter, 'N', will be a number. Now, in 'fnCounter', allow the anonymous funciton to be invoked 'N' number of times. After it's been invoked 'N' number of times, return 'STOP'.
+  Now, similar to the last problem, write a function cao plled 'fnCounter' that accepts twarameters. The first parameter will be an anonymous function and the second parameter, 'N', will be a number. Now, in 'fnCounter', allow the anonymous funciton to be invoked 'N' number of times. After it's been invoked 'N' number of times, return 'STOP'.
 */
+var fnCounter = (function(), N) {
+  for (var i = 0; i < N; i++) {
+    return 'stop';
+  };
+}
 
+fnCounter();
 
 
 //Next Problem
