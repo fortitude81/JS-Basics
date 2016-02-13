@@ -34,8 +34,16 @@ var callFriend = function(){
 //Above you're given a callFriend function that returns another function.
 //Do what you need to do in order to call your function and get '435-215-9248' in your console.
 var callJake = callFriend();  //assigned outer function to new function
-callJake();                   //invoked new function
-
+console.log(callJake('435-215-1111'));   //invoked new function, passed in argument
+// this would also work ->
+// var callFriend = function(){
+//  var friend = 'Jake';
+//  function callF(number){
+//    return 'Calling ' + friend + ' at ' + number;
+//  }
+//  console.log(callF('435-215-1111'));
+// };
+// callFriend();
 
 //Next Problem
 
@@ -68,9 +76,9 @@ var makeCounter = function(){
 var codeLove = function(){
   return 'I love code';
 }
-var codeHate  = function (){
-  return 'whatever';
-}
+//var codeHate  = function (){
+//  return 'whatever';
+//}
 var codeFriend = function(func) {  //func is just a place holder
   var first = true;  //flag
   return function(){
@@ -79,17 +87,12 @@ var codeFriend = function(func) {  //func is just a place holder
       return func();  //codeLove invoked
     }
       return null;
-
   } 
-
-
 };
 var codeEcho = codeFriend(codeLove);  //codeEcho is the inner 3rd func
-var codeEcho2 = codeFriend(codeHate);
+//var codeEcho2 = codeFriend(codeHate);
 codeEcho();
   //Code Here
-
-
 
 //Next Problem
 
@@ -104,7 +107,7 @@ var fnCounter = (function(), N) {
   };
 }
 
-fnCounter();
+fnCounter(6);
 
 
 //Next Problem
@@ -114,30 +117,39 @@ fnCounter();
 /*
   var counter = function(){
     for (var i=1; i<=5; i++) {
-      setTimeout( function timer(){
-          console.log( i );
-      }, i*1000 );
+      setTimeout( function timer(){    // 2 parameters here, function timer
+          console.log( i );           
+      }, i*1000 );                     // and second paramter i*1000
     }
   };
 
   Above you have a function named counter. Examine the function (without running the code) then below write what you expect to happen when the funciton is invoked. *Hint: setTimeout calls a function or evaluates an expression after a specified number of milliseconds.
 
-    //Answer Here
+    //5000
 
 
   Now, run the function in your console and note what happpens.
 
   Was your answer right or wrong?
 
-    //Answer Here
+    //wrong
 
 
   Fix the counter function so that it works the way you expect it to work. (logging 1 then 2 then 3, etc) (Note: No unit test for this one because of the timeout)
 */
 
-    //Code Here
-
-
+//Code Here
+var counter = function() {  
+  for(var i=1; i <= 5; i++) {
+    setTimeout(function(x) {  
+      return function() {   //anonymous function wrapped inside SetTimeout function
+        console.log(x);
+      }; 
+      }(i), 1000  * i);
+      }
+    }
+  }
+counter();
 
 //Next Problem
 
@@ -157,3 +169,10 @@ fnCounter();
 */
 
 
+var funcArray = [];
+var func = function (num){
+  return (function(){ return num;})
+}
+for (var i = 0; i < 6; i++) {
+  funcArray.push(func(i))
+};
